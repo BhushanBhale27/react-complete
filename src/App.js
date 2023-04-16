@@ -5,17 +5,17 @@ import ExpenseItem from "../src/components/Expenses/ExpenseItem";
 // import ExpenseForm from "./components/Expenses/ExpenseForm";
 import NewExpense from "../src/components/NewExpenses/NewExpense";
 import React from "react";
-
+import ExpensesFilter from "../src/components/Expenses/ExpensesFilter";
 
 //Here I comment out react default code just
 
-const App = () => { 
+const App = () => {
   const expenses = [
     //way 3 using props
     {
       title: "Food",
       amount: 10,
-      date: new Date(2023, 0, 13),  // 0 means january
+      date: new Date(2023, 0, 13), // 0 means january
       LocationOfExpenditure: "School",
     },
 
@@ -65,32 +65,39 @@ const App = () => {
   //   },
   // ];
 
-  const addExpenseHandler = expense => {
+  const addExpenseHandler = (expense) => {
     console.log("in app.js");
     console.log(expense);
-  }
+  };
 
-  return (
-    <div className="expense-item">
-      <header className="App-header">
-        {/* Now add custom HTML component as Capital Letter */}
-        {/* Add above data in each expenseItem components */}
+  const Expenses = (props) => {
+    const [filteredYear, setFilteredYear] = useState("2020");
 
-        {/* Apply map method to iterate each expense */}
+    const filterChangeHandler = (selectedYear) => {
+      setFilteredYear(selectedYear);
+    };
 
-        {expenses.map((expense) => {
-          return (
-            <ExpenseItem
-              title={expense.title}
-              amount={expense.amount}
-              date={expense.date}
-              LocationOfExpenditure={expense.LocationOfExpenditure}
-            />
-          );
-        })}
+    return (
+      <div className="expense-item">
+        <header className="App-header">
+          {/* Now add custom HTML component as Capital Letter */}
+          {/* Add above data in each expenseItem components */}
 
-        {/* Apply map method to iterate each product */}
-        {/* {products.map((item) => {
+          {/* Apply map method to iterate each expense */}
+
+          {expenses.map((expense) => {
+            return (
+              <ExpenseItem
+                title={expense.title}
+                amount={expense.amount}
+                date={expense.date}
+                LocationOfExpenditure={expense.LocationOfExpenditure}
+              />
+            );
+          })}
+
+          {/* Apply map method to iterate each product */}
+          {/* {products.map((item) => {
           return (
             <ProductOptions
               product={item.product}
@@ -100,11 +107,15 @@ const App = () => {
           );
         })} */}
 
-        <NewExpense onAddExpense = {addExpenseHandler} />
-
-      </header>
-    </div>
-  );
-}
+          <NewExpense onAddExpense={addExpenseHandler} />
+          <ExpensesFilter
+            selected={filteredYear}
+            onChangeFilter={filterChangeHandler}
+          />
+        </header>
+      </div>
+    );
+  };
+};
 
 export default App;
