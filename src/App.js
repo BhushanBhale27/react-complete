@@ -1,12 +1,15 @@
 // import logo from './logo.svg';
 // import './App.css';
-import ExpenseItem from "./components/ExpenseItem";
-import ProductOptions from "./components/ProductOptions";
+import ExpenseItem from "../src/components/Expenses/ExpenseItem";
+// import ProductOptions from "./components/Expenses/ProductOptions";
+// import ExpenseForm from "./components/Expenses/ExpenseForm";
+import NewExpense from "../src/components/NewExpenses/NewExpense";
+import React from "react";
 
 
 //Here I comment out react default code just
 
-function App() {
+const App = () => { 
   const expenses = [
     //way 3 using props
     {
@@ -38,29 +41,34 @@ function App() {
     },
   ];
 
-  const products = [
-    //way 3 using props
-    {
-      product: "food",
-      price: 256,
-      date: new Date(2023, 4, 14),
-    },
-    {
-      product: "milk",
-      price: 65,
-      date: new Date(2023, 4, 11),
-    },
-    {
-      product: "petrol",
-      price: 120,
-      date: new Date(2023, 4, 14),
-    },
-    {
-      product: "hair",
-      price: 1500,
-      date: new Date(2023, 4, 10),
-    },
-  ];
+  // const products = [
+  //   //way 3 using props
+  //   {
+  //     product: "food",
+  //     price: 256,
+  //     date: new Date(2023, 4, 14),
+  //   },
+  //   {
+  //     product: "milk",
+  //     price: 65,
+  //     date: new Date(2023, 4, 11),
+  //   },
+  //   {
+  //     product: "petrol",
+  //     price: 120,
+  //     date: new Date(2023, 4, 14),
+  //   },
+  //   {
+  //     product: "hair",
+  //     price: 1500,
+  //     date: new Date(2023, 4, 10),
+  //   },
+  // ];
+
+  const addExpenseHandler = expense => {
+    console.log("in app.js");
+    console.log(expense);
+  }
 
   return (
     <div className="expense-item">
@@ -77,57 +85,23 @@ function App() {
               amount={expense.amount}
               date={expense.date}
               LocationOfExpenditure={expense.LocationOfExpenditure}
-            ></ExpenseItem>
+            />
           );
         })}
 
         {/* Apply map method to iterate each product */}
-        {products.map((item) => {
+        {/* {products.map((item) => {
           return (
             <ProductOptions
               product={item.product}
               price={item.price}
               date={item.date}
-            ></ProductOptions>
+            />
           );
-        })}
+        })} */}
 
-        {/* for below code we can use .map method to DRY */}
-        {/* <ProductOptions
-          product={products[0].product}
-          amount={products[0].amount}
-        ></ProductOptions>
-        <ProductOptions product={products[1].product}></ProductOptions>
-        <ProductOptions product={products[2].product}></ProductOptions>
-        <ProductOptions product={products[3].product}></ProductOptions> */}
+        <NewExpense onAddExpense = {addExpenseHandler} />
 
-        {/* <ExpenseItem
-          title={expenses[0].title}
-          amount={expenses[0].amount}
-          date={expenses[0].date}
-          LocationOfExpenditure={expenses[0].LocationOfExpenditure}
-        ></ExpenseItem>
-
-        <ExpenseItem
-          title={expenses[1].title}
-          amount={expenses[1].amount}
-          date={expenses[1].date}
-          LocationOfExpenditure={expenses[1].LocationOfExpenditure}
-        ></ExpenseItem>
-
-        <ExpenseItem
-          title={expenses[2].title}
-          amount={expenses[2].amount}
-          date={expenses[2].date}
-          LocationOfExpenditure={expenses[2].LocationOfExpenditure}
-        ></ExpenseItem>
-
-        <ExpenseItem
-          title={expenses[3].title}
-          amount={expenses[3].amount}
-          date={expenses[3].date}
-          LocationOfExpenditure={expenses[3].LocationOfExpenditure}
-        ></ExpenseItem> */}
       </header>
     </div>
   );
