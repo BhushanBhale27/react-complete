@@ -1,121 +1,55 @@
-// import logo from './logo.svg';
-// import './App.css';
-import ExpenseItem from "../src/components/Expenses/ExpenseItem";
-// import ProductOptions from "./components/Expenses/ProductOptions";
-// import ExpenseForm from "./components/Expenses/ExpenseForm";
+import React , {useState} from "react";
 import NewExpense from "../src/components/NewExpenses/NewExpense";
-import React from "react";
-import ExpensesFilter from "../src/components/Expenses/ExpensesFilter";
+import Expenses from "../src/components/Expenses/Expenses";
 
-//Here I comment out react default code just
+const DUMMY_EXPENSES = [
+  {
+    id:"e1",
+    title: "Food",
+    amount: 10,
+    date: new Date(2023, 0, 13), // 0 means january
+  },
+
+  {
+    id:"e2",
+    title: "milk",
+    amount: 65,
+    date: new Date(2023, 3, 11),
+  },
+
+  {
+    id:"e3",
+    title: "petrol",
+    amount: 120,
+    date: new Date(2023, 3, 10),
+  },
+
+  {
+    id:"e4",
+    title: "Hair",
+    amount: 1000,
+    date: new Date(2023, 3, 11),
+  },
+];
+
+
 
 const App = () => {
-  const expenses = [
-    //way 3 using props
-    {
-      title: "Food",
-      amount: 10,
-      date: new Date(2023, 0, 13), // 0 means january
-      LocationOfExpenditure: "School",
-    },
+  const [expenses , setExpenses] = useState(DUMMY_EXPENSES);
 
-    {
-      title: "milk",
-      amount: 65,
-      date: new Date(2023, 3, 11),
-      LocationOfExpenditure: "Kojagiri",
-    },
-
-    {
-      title: "petrol",
-      amount: 120,
-      date: new Date(2023, 3, 10),
-      LocationOfExpenditure: "PetrolPump",
-    },
-
-    {
-      title: "Hair",
-      amount: 1000,
-      date: new Date(2023, 3, 11),
-      LocationOfExpenditure: "Saloon",
-    },
-  ];
-
-  // const products = [
-  //   //way 3 using props
-  //   {
-  //     product: "food",
-  //     price: 256,
-  //     date: new Date(2023, 4, 14),
-  //   },
-  //   {
-  //     product: "milk",
-  //     price: 65,
-  //     date: new Date(2023, 4, 11),
-  //   },
-  //   {
-  //     product: "petrol",
-  //     price: 120,
-  //     date: new Date(2023, 4, 14),
-  //   },
-  //   {
-  //     product: "hair",
-  //     price: 1500,
-  //     date: new Date(2023, 4, 10),
-  //   },
-  // ];
 
   const addExpenseHandler = (expense) => {
-    console.log("in app.js");
-    console.log(expense);
+    setExpenses((prevExpenses) =>{
+      return [expense,...prevExpenses]
+    });
   };
 
-  const Expenses = (props) => {
-    const [filteredYear, setFilteredYear] = useState("2020");
-
-    const filterChangeHandler = (selectedYear) => {
-      setFilteredYear(selectedYear);
-    };
-
-    return (
-      <div className="expense-item">
-        <header className="App-header">
-          {/* Now add custom HTML component as Capital Letter */}
-          {/* Add above data in each expenseItem components */}
-
-          {/* Apply map method to iterate each expense */}
-
-          {expenses.map((expense) => {
-            return (
-              <ExpenseItem
-                title={expense.title}
-                amount={expense.amount}
-                date={expense.date}
-                LocationOfExpenditure={expense.LocationOfExpenditure}
-              />
-            );
-          })}
-
-          {/* Apply map method to iterate each product */}
-          {/* {products.map((item) => {
-          return (
-            <ProductOptions
-              product={item.product}
-              price={item.price}
-              date={item.date}
-            />
-          );
-        })} */}
-
-          <NewExpense onAddExpense={addExpenseHandler} />
-          <ExpensesFilter
-            selected={filteredYear}
-            onChangeFilter={filterChangeHandler}
-          />
-        </header>
-      </div>
-    );
-  };
+  return (
+    <div>
+      <NewExpense onAddExpense={addExpenseHandler} />
+      <Expenses items={expenses} />
+    </div>
+  );
 };
 
 export default App;
